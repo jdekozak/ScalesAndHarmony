@@ -1,0 +1,280 @@
+:root {
+  --bg-color: #0d0d12;
+  --text-color: #e2e8f0;
+  --glass-bg: rgba(25, 25, 35, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --primary-font: 'Inter', sans-serif;
+  --display-font: 'Outfit', sans-serif;
+  
+  --fret-color: #b0b0b0;
+  --string-color: #e0e0e0;
+  --nut-color: #fffdd0;
+  --dot-color: rgba(255, 255, 255, 0.6);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--primary-font);
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background: radial-gradient(circle at top, #1a1a24, #0d0d12);
+  padding: 2rem;
+}
+
+#app {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+header {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+h1 {
+  font-family: var(--display-font);
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(135deg, #fff, #a0a0b0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+}
+
+.control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #94a3b8;
+}
+
+select {
+  appearance: none;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--glass-border);
+  color: #fff;
+  padding: 0.75rem 2.5rem 0.75rem 1rem;
+  font-family: var(--primary-font);
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.2s ease;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.5rem center;
+  background-size: 1em;
+}
+
+select:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+select:focus {
+  border-color: #06d6a0;
+  box-shadow: 0 0 0 2px rgba(6, 214, 160, 0.2);
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.fretboard-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  padding-bottom: 1rem;
+  border-radius: 12px;
+}
+
+.fretboard-container {
+  min-width: 1000px;
+  height: 240px;
+  background-image: url('/fretboard.jpg');
+  background-size: cover;
+  background-position: center;
+  border-radius: 8px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(0,0,0,0.8);
+  position: relative;
+  display: flex;
+  border: 2px solid #222;
+  overflow: hidden;
+}
+
+/* Add a dark overlay to make notes pop */
+.fretboard-container::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(90deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.6) 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.fret {
+  flex: 1;
+  border-right: 3px solid var(--fret-color);
+  position: relative;
+  box-shadow: 2px 0 2px rgba(0,0,0,0.5);
+  z-index: 2;
+}
+
+.fret.nut {
+  flex: 0 0 2%;
+  border-right: 8px solid var(--nut-color);
+  background: #111;
+}
+
+.fret-dot {
+  width: 16px;
+  height: 16px;
+  background: var(--dot-color);
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.double-dot-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.double-dot-container .fret-dot {
+  position: static;
+  transform: none;
+}
+
+.strings-container {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.string {
+  position: absolute;
+  left: 0;
+  right: 0;
+  background: linear-gradient(180deg, #eee, #aaa, #eee);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.6);
+  z-index: 3;
+}
+
+.note-marker {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #000;
+  box-shadow: 0 0 10px rgba(0,0,0,0.8), inset 0 -2px 4px rgba(0,0,0,0.3);
+  z-index: 10;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  cursor: pointer;
+}
+
+.note-marker:hover {
+  transform: scale(1.3) !important;
+  z-index: 20 !important;
+  box-shadow: 0 0 15px currentColor, inset 0 -2px 4px rgba(0,0,0,0.3);
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 20px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+.legend-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.legend-color {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  box-shadow: 0 0 5px currentColor;
+}
+
+.legend-text {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* Animations */
+@keyframes popIn {
+  0% { opacity: 0; transform: scale(0.5); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.note-marker {
+  animation: popIn 0.3s ease forwards;
+}
