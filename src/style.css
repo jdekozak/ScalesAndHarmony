@@ -123,8 +123,8 @@ main {
 
 .fretboard-container {
   width: 100%;
-  aspect-ratio: 1024 / 400;
-  height: auto;
+  height: 0;
+  padding-bottom: 39.0625%; /* 400 / 1024 * 100 for aspect ratio compatibility */
   background-image: url('/fretboard.png');
   background-size: 100% 100%;
   background-repeat: no-repeat;
