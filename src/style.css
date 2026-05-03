@@ -125,7 +125,7 @@ main {
   width: 100%;
   aspect-ratio: 1024 / 400;
   height: auto;
-  background-image: url('/ScalesAndHarmony/fretboard.png');
+  background-image: url('/fretboard.png');
   background-size: 100% 100%;
   background-repeat: no-repeat;
   background-position: center;
